@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
-import { from, map, Observable, switchMap } from 'rxjs';
+import { from, map, Observable, of, switchMap, tap } from 'rxjs';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../models/user.entity';
 import { User } from '../models/user.class';
@@ -20,24 +20,40 @@ export class AuthService {
         return from(bcrypt.hash(password, 12));
     }
 
+    doesUserExist(email: string): Observable<boolean> {
+        return from(this.userRepository.findOne({ email })).pipe(
+            switchMap((user: User) => {
+                return of(!!user);
+            })
+        )
+    }
+
     registerAccount(user: User): Observable<User> {
         const { firstName, lastName, email, password } = user;
 
-        return this.hashPassword(password).pipe(
-            switchMap((hashedPassword: string) => {
-                return from(this.userRepository.save({
-                    firstName,
-                    lastName,
-                    email,
-                    password: hashedPassword
-                })).pipe(
-                    map((user: User) => {
-                        delete user.password;
-                        return user;
-                    })
-                );
-            }
-            )
+        return this.doesUserExist(email).pipe(
+            tap((doesUserExist: boolean) => {
+                if (doesUserExist) throw new HttpException('A user has already been created with this email address',
+                    HttpStatus.BAD_REQUEST);
+            }),
+            switchMap(() => {
+                return this.hashPassword(password).pipe(
+                    switchMap((hashedPassword: string) => {
+                        return from(this.userRepository.save({
+                            firstName,
+                            lastName,
+                            email,
+                            password: hashedPassword
+                        })).pipe(
+                            map((user: User) => {
+                                delete user.password;
+                                return user;
+                            })
+                        );
+                    }
+                    )
+                )
+            })
         )
     }
 
