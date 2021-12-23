@@ -1,0 +1,29 @@
+<ion-toolbar>
+  <ion-tabs>
+    <ion-tab-bar>
+      <ion-tab-button>
+        <ion-icon name="home"></ion-icon>
+        <div>Home</div>
+      </ion-tab-button>
+      <ion-tab-button>
+        <ion-icon name="people"></ion-icon>
+        <div>My Network</div>
+      </ion-tab-button>
+      <ion-tab-button>
+        <ion-icon (click)="presentModal()" name="add-circle"></ion-icon>
+        <div>Post</div>
+      </ion-tab-button>
+      <ion-tab-button>
+        <ion-icon name="notifications"></ion-icon>
+        <ion-badge color="danger">
+          <ion-text>2</ion-text>
+        </ion-badge>
+        <div>Notifications</div>
+      </ion-tab-button>
+      <ion-tab-button>
+        <ion-icon name="briefcase"></ion-icon>
+        <div>Jobs</div>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-toolbar>
