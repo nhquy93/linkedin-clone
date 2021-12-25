@@ -38,8 +38,9 @@ export class PopoverComponent implements OnInit, OnDestroy {
     this.subs.forEach((sub) => sub.unsubscribe());
   }
 
-  onSignOut() {
+  async onSignOut() {
+    await this.popoverController.dismiss();
     this.authService.logout();
-    this.popoverController.dismiss();
+    location.reload();
   }
 }

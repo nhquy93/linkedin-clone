@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { take, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { FriendRequest } from '../../models/FriendRequest';
 import { ConnectionProfileService } from '../../services/connection-profile.service';
@@ -21,7 +22,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private popoverController: PopoverController,
     private connectionProfileService: ConnectionProfileService
-  ) { }
+  ) { 
+    this.authService
+    .getUserImageName()
+    .pipe(
+      take(1),
+      tap(({ imageName }) => {
+        const defaultIImagePath = 'blank-profile-user.png';
+        this.authService
+          .updateUserImagePath(imageName || defaultIImagePath)
+          .subscribe();
+      })
+    ).subscribe();
+  }
 
   ngOnInit() {
     this.connectionProfileService.getFriendRequests().subscribe();

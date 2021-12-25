@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
-import { AdvertisingComponent, AllPostsComponent, HeaderComponent, ProfileSummaryComponent, StartPostComponent, TabsComponent, ConnectionProfileComponent, UserProfileComponent } from './components';
+import { AdvertisingComponent, AllPostsComponent, HeaderComponent, ProfileSummaryComponent, StartPostComponent, TabsComponent, ConnectionProfileComponent, UserProfileComponent, ChatComponent } from './components';
 import { ModalComponent } from './components/modal/modal.component';
 import { PopoverComponent } from './components/header/popover/popover.component';
 import { FriendRequestsPopoverComponent } from './components/header/friend-requests-popover/friend-requests-popover.component';
@@ -20,6 +20,7 @@ import { FriendRequestsPopoverComponent } from './components/header/friend-reque
   declarations: [
     HomePage,
     TabsComponent,
+    ChatComponent,
     ModalComponent,
     HeaderComponent,
     PopoverComponent,

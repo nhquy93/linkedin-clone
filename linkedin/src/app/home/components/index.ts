@@ -1,4 +1,5 @@
 export * from './tabs/tabs.component';
+export * from './chat/chat.component';
 export * from './header/header.component';
 export * from './all-posts/all-posts.component';
 export * from './start-post/start-post.component';

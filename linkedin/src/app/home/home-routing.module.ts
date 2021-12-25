@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ConnectionProfileComponent, UserProfileComponent } from './components';
+import { ChatComponent, ConnectionProfileComponent, UserProfileComponent } from './components';
 import { HomePage } from './home.page';
 
 const routes: Routes = [
@@ -12,6 +12,10 @@ const routes: Routes = [
       {
         path: ':id',
         component: ConnectionProfileComponent,
+      },
+      {
+        path: 'chat/connections',
+        component: ChatComponent,
       }
     ]
   },

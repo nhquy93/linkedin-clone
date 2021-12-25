@@ -17,21 +17,8 @@ export class PostService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
     private errorHandlerService: ErrorHandlerService
-  ) {
-    this.authService
-      .getUserImageName()
-      .pipe(
-        take(1),
-        tap(({ imageName }) => {
-          const defaultIImagePath = 'blank-profile-user.png';
-          this.authService
-            .updateUserImagePath(imageName || defaultIImagePath)
-            .subscribe();
-        })
-      ).subscribe();
-  }
+  ) { }
 
   getSelectedPosts(params) {
     return this.http.get<Post[]>(
