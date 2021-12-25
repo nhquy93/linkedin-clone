@@ -33,8 +33,11 @@ export class AuthService {
 
         return this.doesUserExist(email).pipe(
             tap((doesUserExist: boolean) => {
-                if (doesUserExist) throw new HttpException('A user has already been created with this email address',
-                    HttpStatus.BAD_REQUEST);
+                if (doesUserExist)
+                    throw new HttpException(
+                        'A user has already been created with this email address',
+                        HttpStatus.BAD_REQUEST
+                    );
             }),
             switchMap(() => {
                 return this.hashPassword(password).pipe(
